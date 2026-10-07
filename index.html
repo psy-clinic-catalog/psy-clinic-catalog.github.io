@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="ru" data-theme="light">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Каталог материалов — Клиническая психология</title>
+<meta name="description" content="Каталог учебных материалов по клинической психологии с поиском по названиям">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<header class="top">
+  <div class="wrap top-row">
+    <h1>Клиническая психология <span class="sub">каталог материалов</span></h1>
+    <div class="top-right">
+      <span id="stats" class="stats"></span>
+      <button id="theme" class="icon-btn" type="button" title="Светлая / тёмная тема" aria-label="Сменить тему">☾</button>
+    </div>
+  </div>
+
+  <div class="wrap search-row">
+    <div class="search-box">
+      <span class="search-icon" aria-hidden="true">🔍</span>
+      <input id="search" type="search" autocomplete="off" spellcheck="false"
+             placeholder="Поиск по названиям: предмет, лекция, файл…   (/ или Ctrl+K)"
+             aria-label="Поиск по каталогу">
+      <button id="clear" class="icon-btn" type="button" title="Очистить" aria-label="Очистить" hidden>×</button>
+    </div>
+  </div>
+
+  <div class="wrap filters">
+    <div id="chips" class="chips" role="group" aria-label="Фильтр по типу файлов"></div>
+    <button id="collapse-all" class="btn" type="button">Развернуть все</button>
+    <span id="counter" class="counter" aria-live="polite"></span>
+  </div>
+</header>
+
+<main class="wrap" id="list"></main>
+
+<div id="viewer" class="viewer" hidden aria-hidden="true" role="dialog" aria-modal="true" aria-label="Просмотр фотографий">
+  <div class="viewer-bar">
+    <span id="viewer-title" class="viewer-title"></span>
+    <span id="viewer-count" class="viewer-count"></span>
+    <a id="viewer-open" class="viewer-btn" href="#" target="_blank" rel="noopener" title="Открыть файл отдельно">↗</a>
+    <button id="viewer-close" class="viewer-btn" type="button" title="Закрыть (Esc)" aria-label="Закрыть">×</button>
+  </div>
+  <button id="viewer-prev" class="viewer-nav prev" type="button" title="Предыдущий (←)" aria-label="Предыдущий слайд">‹</button>
+  <img id="viewer-img" class="viewer-img" alt="">
+  <button id="viewer-next" class="viewer-nav next" type="button" title="Следующий (→)" aria-label="Следующий слайд">›</button>
+</div>
+
+<footer class="wrap foot">
+  <p><strong>Как открываются материалы.</strong> Фотографии открываются в самом каталоге: щёлкните по слайду —
+     откроется просмотр, где можно листать снимки стрелками ← → или свайпом, не закрывая вкладку.
+     PDF открываются в новой вкладке браузера. Файлы Word, PowerPoint и архивы браузер скачивает —
+     чтобы открыть их в нужной программе, нажмите <span class="mono">⧉</span> рядом с файлом:
+     полный путь скопируется в буфер, его можно вставить в адресную строку Проводника.</p>
+  <p><strong>Ссылки относительные</strong> — сайт работает без интернета и не сломается, если перенести
+     всю папку каталога целиком в другое место. Индекс поиска собирается из названий папок и файлов.</p>
+</footer>
+
+<script src="search.js"></script>
+<script src="index-data.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
