@@ -218,7 +218,8 @@
     var row = document.createElement('div');
     row.className = 'item item-' + item.t;
 
-    var inCloud = !!item.x;          // ссылка на облачную папку
+    var inCloud = !!item.x;          // ссылка в облако (на файл или на папку)
+    var inFolder = !!item.cf;        // значит x — ссылка на сам файл, а cf — на папку
     var noLink = !!item.no;          // ещё не загружено в облако
     var node;
 
@@ -232,8 +233,12 @@
       node.href = inCloud ? item.x : toHref(item.p);
       node.target = '_blank';
       node.rel = 'noopener';
-      node.title = inCloud ? item.p + ' — откроется в облаке'
-                           : (item.t === 'photo' ? item.p + ' — открыть в просмотрщике' : item.p);
+      if (inCloud) {
+        node.title = item.p + (inFolder ? ' — откроется сам документ в облаке'
+                                        : ' — откроется папка в облаке');
+      } else {
+        node.title = item.t === 'photo' ? item.p + ' — открыть в просмотрщике' : item.p;
+      }
     }
 
     var icon = document.createElement('span');
@@ -250,7 +255,8 @@
       var cloud = document.createElement('span');
       cloud.className = 'cloud-dot';
       cloud.textContent = '☁';
-      cloud.title = 'Документ лежит в облаке';
+      cloud.title = inFolder ? 'Документ в облаке — откроется сразу сам файл'
+                             : 'Документ лежит в облаке';
       node.appendChild(cloud);
     }
     row.appendChild(node);
@@ -272,6 +278,21 @@
       warn.title = 'Путь к файлу длиннее 260 символов — Windows не откроет его обычным способом. ' +
                    'Файл нужно переименовать или перенести в папку с более коротким путём.';
       row.appendChild(warn);
+    }
+
+    if (item.cf) {
+      // запасной вариант: открыть всю папку предмета в облаке
+      var fold = document.createElement('button');
+      fold.className = 'copy';
+      fold.type = 'button';
+      fold.textContent = '🗂';
+      fold.title = 'Открыть всю папку с документами этого предмета в облаке';
+      fold.addEventListener('click', function (e) {
+        e.preventDefault();
+        e.stopPropagation();
+        window.open(item.cf, '_blank', 'noopener');
+      });
+      row.appendChild(fold);
     }
 
     if (!noLink) {
